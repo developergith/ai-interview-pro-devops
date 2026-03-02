@@ -1,0 +1,19 @@
+ services:
+  backend:
+    build: ./ai-interview-Backend
+    container_name: backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./ai-interview-Backend/.env
+
+  frontend:
+    build:
+      context: ./ai-interview-Frontend
+      args:
+        VITE_API_URL: http://localhost:5000/api
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
