@@ -1,4 +1,6 @@
- services:
+version: "3.8"
+
+services:
   backend:
     build: ./ai-interview-Backend
     container_name: backend
@@ -11,7 +13,7 @@
     build:
       context: ./ai-interview-Frontend
       args:
-        VITE_API_URL: http://localhost:5000/api
+        VITE_API_URL: /api
     container_name: frontend
     ports:
       - "3000:80"
