@@ -132,22 +132,28 @@ Workflow:
 5 Containers restart automatically
 
 ---
-# Screenshots
+## Screenshots
 
-## Application UI
+### Application UI
 
 ![Dashboard](screenshots/dashboard.png)
 
 ![Login Page](screenshots/login.png)
 
-## Docker Containers Running
+![Ragister](screenshots/ragister.png)
+
+### Docker Containers Running
 
 ![Docker Containers](screenshots/docker-containers.png)
 
-## GitHub Actions Pipeline
+### GitHub Actions Pipeline
 
 ![CI/CD](screenshots/github-actions.png)
 
-## AWS EC2 Instance
+### AWS EC2 Instance
 
 ![EC2](screenshots/ec2-instance.png)
+
+## Deployment
+
+![Deployment](screenshots/deployment.png)
