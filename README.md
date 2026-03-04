@@ -145,7 +145,9 @@ Workflow:
 
 ## Application UI
 
-![App UI](screenshots/app-ui.png)
+![App UI](screenshots/dashboard.png)
+(screenshots/ragister.png)
+(screenshots/Login.png)
 
 ## Docker Containers Running
 
