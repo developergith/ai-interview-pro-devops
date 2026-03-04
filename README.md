@@ -138,7 +138,7 @@ Workflow:
 
 ![Dashboard](screenshots/dashboard.png)
 
-![Login Page](screenshots/login.png)
+![Login Page](screenshots/Login.png)
 
 ![Ragister](screenshots/ragister.png)
 
