@@ -23,7 +23,6 @@ http://44.200.152.112:5000
 This project demonstrates how a real production application is deployed using DevOps practices.
 
 Features
-
 • User authentication  
 • AI based interview simulation  
 • Secure backend APIs  
@@ -42,23 +41,15 @@ EC2 server pulls the latest images and runs containers.
 flowchart TD
 
 A[Developer] --> B[GitHub Repository]
-
 B --> C[GitHub Actions CI/CD]
-
 C --> D[Docker Build]
-
 D --> E[Docker Hub]
-
 E --> F[AWS EC2 Server]
-
 F --> G[Nginx Reverse Proxy]
-
 G --> H[React Frontend Container]
-
 G --> I[Node.js Backend Container]
-
-I --> J[(MongoDB Atlas)]
-
+I --> J[MongoDB Atlas]
+```
 
 
 
@@ -146,8 +137,8 @@ Workflow:
 ## Application UI
 
 ![App UI](screenshots/dashboard.png)
+(screenshots/ragister.png)
 (screenshots/Login.png)
-
 
 ## Docker Containers Running
 
@@ -160,8 +151,3 @@ Workflow:
 ## AWS EC2 Instance
 
 ![EC2](screenshots/ec2-instance.png)
-
-
-
-
-
