@@ -1,0 +1,46 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Backend Image
+        run: docker build -t ayusnath/ai-backend:latest ./ai-interview-Backend
+
+      - name: Push Backend Image
+        run: docker push ayusnath/ai-backend:latest
+
+      - name: Build Frontend Image
+        run: docker build -t ayusnath/ai-frontend:latest ./ai-interview-Frontend
+
+      - name: Push Frontend Image
+        run: docker push ayusnath/ai-frontend:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker pull ayusnath/ai-backend:latest
+            sudo docker pull ayusnath/ai-frontend:latest
+            sudo docker stop backend frontend || true
+            sudo docker rm backend frontend || true
+            sudo docker run -d --name backend --network ai-network -p 5000:5000 -e MONGO_URI="YOUR_MONGO_URI" -e JWT_SECRET="supersecretkey" -e GEMINI_API_KEY="YOUR_GEMINI_KEY" ayusnath/ai-backend:latest
+            sudo docker run -d --name frontend --network ai-network -p 80:80 ayusnath/ai-frontend:latest
