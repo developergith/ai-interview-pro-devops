@@ -1,57 +1,33 @@
+
 name: Build and Push Docker Images
 
 on:
-push:
-branches:
-- main
+  push:
+    branches:
+      - main
 
 jobs:
-docker:
-runs-on: ubuntu-latest
+  docker:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Checkout Repository
-    uses: actions/checkout@v3
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-  - name: Login to Docker Hub
-    uses: docker/login-action@v2
-    with:
-      username: ${{ secrets.DOCKERHUB_USERNAME }}
-      password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # -------- BACKEND --------
       - name: Build Backend Image
-        run: |
-          docker build -t ayusnath/ai-backend:latest ./ai-interview-Backend
+        run: docker build -t ayusnath/ai-backend:latest ./ai-interview-Backend
 
-  - name: Push Backend Image
-    run: docker push ayusnath/ai-backend:latest
+      - name: Push Backend Image
+        run: docker push ayusnath/ai-backend:latest
 
-      # -------- FRONTEND --------
       - name: Build Frontend Image
-        run: |
-          docker build -t ayusnath/ai-frontend:latest ./ai-interview-Frontend
+        run: docker build -t ayusnath/ai-frontend:latest ./ai-interview-Frontend
 
-  - name: Push Frontend Image
-    run: docker push ayusnath/ai-frontend:latest
-```
-
-deploy:
-needs: docker
-runs-on: ubuntu-latest
-
-```
-steps:
-  - name: Deploy to EC2
-    uses: appleboy/ssh-action@v1.0.3
-    with:
-      host: ${{ secrets.EC2_HOST }}
-      username: ${{ secrets.EC2_USER }}
-      key: ${{ secrets.EC2_SSH_KEY }}
-      script: |
-        cd /home/ubuntu/ai-interview
-        docker-compose pull
-        docker-compose up -d
-        docker image prune -f
-```
+      - name: Push Frontend Image
+        run: docker push ayusnath/ai-frontend:latest
