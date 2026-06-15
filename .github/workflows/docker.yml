@@ -1,4 +1,4 @@
- name: Build, Push and Deploy
+name: Build and Push Docker Images
 
 on:
 push:
@@ -20,16 +20,18 @@ steps:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  - name: Build Backend Image
-    run: |
-      docker build -t ayusnath/ai-backend:latest ./ai-interview-Backend
+      # -------- BACKEND --------
+      - name: Build Backend Image
+        run: |
+          docker build -t ayusnath/ai-backend:latest ./ai-interview-Backend
 
   - name: Push Backend Image
     run: docker push ayusnath/ai-backend:latest
 
-  - name: Build Frontend Image
-    run: |
-      docker build -t ayusnath/ai-frontend:latest ./ai-interview-Frontend
+      # -------- FRONTEND --------
+      - name: Build Frontend Image
+        run: |
+          docker build -t ayusnath/ai-frontend:latest ./ai-interview-Frontend
 
   - name: Push Frontend Image
     run: docker push ayusnath/ai-frontend:latest
